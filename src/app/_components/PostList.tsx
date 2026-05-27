@@ -1,14 +1,9 @@
 import Link from "next/link";
 
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-}
+import { Post } from "@/types/post";
 
 type Props = {
   posts: Post[];
-
 }
 
 export default function PostList({ posts }: Props) {

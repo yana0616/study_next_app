@@ -1,10 +1,6 @@
-import { Main } from "next/document";
+import { Post } from "@/types/post";
 
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-}
+import PostDetail from "./_components/PostDetail";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -18,8 +14,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <main>
-      <h1>{post.title}</h1>
-      <p>{post.body}</p>
+      <PostDetail post={post} />
     </main>
   )
 } 

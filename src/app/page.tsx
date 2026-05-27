@@ -2,11 +2,7 @@ import Link from "next/link";
 
 import PostList from "./_components/PostList";
 
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-}
+import { Post } from "@/types/post";
 
 export default async function HomePage() {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
