@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import PostList from "./_components/PostList";
+
 type Post = {
   id: number;
   title: string;
@@ -16,16 +18,7 @@ export default async function HomePage() {
       <Link href="/about">Aboutページへのリンク</Link>
 
       <h2>投稿一覧</h2>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link href={`/posts/${post.id}`}>
-              <h3>{post.title}</h3>
-              <p>{post.body}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <PostList posts={posts} />
     </main>
   )
 }
