@@ -9,11 +9,9 @@ export default async function HomePage() {
   const posts: Post[] = await res.json();
 
   return (
-    <main>
-      <h1>トップページ</h1>
-      <Link href="/about">Aboutページへのリンク</Link>
-
-      <h2>投稿一覧</h2>
+    <main className="max-w-2xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">トップページ</h1>
+      <h2 className="text-xl font-semibold text-gray-700 mb-4">投稿一覧</h2>
       <PostList posts={posts} />
     </main>
   )
