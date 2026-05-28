@@ -3,9 +3,12 @@ import Link from "next/link";
 import PostList from "./_components/PostList";
 
 import { Post } from "@/types/post";
+import { resolve } from "path";
 
 export default async function HomePage() {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
+  // await new Promise((resolve) => setTimeout(resolve, 2000)); // loading確認用
+  // throw new Error('テストエラー') // errorページ確認用
   const posts: Post[] = await res.json();
 
   return (
