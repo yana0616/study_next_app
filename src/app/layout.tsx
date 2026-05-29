@@ -13,6 +13,7 @@ export default function RootLayout({
           <nav className="max-w-2xl mx-auto px-4 py-4 flex gap-6">
             <Link href="/" className="font-semibold text-blue-600 hover:underline">トップ</Link>
             <Link href="/about" className="font-semibold text-blue-600 hover:underline">About</Link>
+            <Link href="/posts/new" className="font-semibold text-blue-600 hover:underline">新規投稿</Link>
           </nav>
         </header>
         <main>
