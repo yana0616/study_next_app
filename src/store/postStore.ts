@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
 type PostStore = {
   searchQuery: string
@@ -6,6 +6,6 @@ type PostStore = {
 }
 
 export const usePostStore = create<PostStore>((set) => ({
-  searchQuery: "",
+  searchQuery: '',
   setSearchQuery: (query) => set({ searchQuery: query }),
 }))
