@@ -22,8 +22,10 @@ export default function LoginPage() {
       setError('メールアドレスまたはパスワードが違います')
       return
     }
-    router.refresh()
-    router.push('/')
+
+    window.location.href = '/'
+    // router.refresh()
+    // router.push('/')
   }
   return (
     <main className="max-w-md mx-auto px-4 py-16">

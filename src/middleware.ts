@@ -4,6 +4,10 @@ import { getToken } from 'next-auth/jwt'
 
 export default async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret: process.env.AUTH_SECRET })
+
+  console.log('token:', token)  // ← 追加
+  console.log('pathname:', request.nextUrl.pathname)  // ← 追加
+
   const isLoggedIn = !!token
   const isLoginPage = request.nextUrl.pathname === '/login'
 
