@@ -1,10 +1,10 @@
-import { auth } from '@/auth'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
 export default async function middleware(request: NextRequest) {
-  const session = await auth()
-  const isLoggedIn = !!session
+  const token = await getToken({ req: request, secret: process.env.AUTH_SECRET })
+  const isLoggedIn = !!token
   const isLoginPage = request.nextUrl.pathname === '/login'
 
   if (!isLoggedIn && !isLoginPage) {
