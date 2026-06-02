@@ -19,10 +19,10 @@ export default function LoginPage() {
     })
 
     if (result?.error) {
-      setError('メールアアドレスまたはパスワードが違います')
+      setError('メールアドレスまたはパスワードが違います')
       return
     }
-
+    router.refresh()
     router.push('/')
   }
   return (
