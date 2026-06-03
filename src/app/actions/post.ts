@@ -3,6 +3,7 @@
 // import { z } from 'zod';
 import { prisma } from '@/lib/prisma'
 import { PostSchema } from '@/lib/validations/post'
+import { redirect } from 'next/navigation'
 
 // const PostSchema = z.object({
 //   title: z.string().min(1, 'タイトルは必須です').max(100, 'タイトルは100文字以内です'),
@@ -72,4 +73,14 @@ export async function updatePost(
   })
 
   return { success: true }
+}
+
+export async function deletePost(formData: FormData): Promise<void> {
+  const id = Number(formData.get('id'))
+
+  await prisma.post.delete({
+    where: { id },
+  })
+
+  redirect('/')
 }
