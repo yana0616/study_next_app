@@ -43,3 +43,33 @@ export async function createPost(
   // console.log(result.data);
   return { success: true }
 }
+
+export async function updatePost(
+  prevState: ActionResult,
+  formData: FormData
+): Promise<ActionResult> {
+  const id = Number(formData.get('id'))
+  console.log('id:', id)
+
+  const result = PostSchema.safeParse({
+    title: formData.get('title'),
+    body: formData.get('body'),
+  })
+
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.flatten().fieldErrors,
+    }
+  }
+
+  await prisma.post.update({
+    where: { id },
+    data: {
+      title: result.data.title,
+      body: result.data.body,
+    },
+  })
+
+  return { success: true }
+}
