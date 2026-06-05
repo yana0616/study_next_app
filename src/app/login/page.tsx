@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react"
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
+import Link from 'next/link'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -63,6 +64,13 @@ export default function LoginPage() {
           ログイン
         </button>
       </form>
+
+      <p className="mt-4 text-sm text-gray-600">
+        アカウントをお持ちでない方は
+        <Link href="/register" className="text-blue-600 hover:underline ml-1">
+          新規登録
+        </Link>
+      </p>
     </main>
   )
 }

@@ -13,8 +13,9 @@ export default async function middleware(request: NextRequest) {
 
   const isLoggedIn = !!token
   const isLoginPage = request.nextUrl.pathname === '/login'
+  const isRegisterPage = request.nextUrl.pathname === '/register'
 
-  if (!isLoggedIn && !isLoginPage) {
+  if (!isLoggedIn && !isLoginPage && !isRegisterPage) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 }
