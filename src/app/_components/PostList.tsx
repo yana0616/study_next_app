@@ -1,11 +1,19 @@
 'use client'
 
 import Link from "next/link";
+import DOMPurify from "dompurify";
 import { usePostStore } from "@/store/postStore";
 import { Post } from "@/types/post";
 
 type Props = {
   posts: Post[];
+}
+
+// postのhtmlをプレーンテキストにする。
+const stripHtml = (html: string) => {
+  const div = document.createElement('div')
+  div.innerHTML = DOMPurify.sanitize(html)
+  return div.textContent || ''
 }
 
 export default function PostList({ posts }: Props) {
@@ -14,7 +22,7 @@ export default function PostList({ posts }: Props) {
   const filteredPosts = posts.filter(
     (post) =>
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.body.toLowerCase().includes(searchQuery.toLowerCase())
+      stripHtml(post.body).toLowerCase().includes(searchQuery.toLowerCase()) // 検索対象にhtmlタグがヒットしないようにする
   )
 
   return (
@@ -23,7 +31,7 @@ export default function PostList({ posts }: Props) {
         <li key={post.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
           <Link href={`/posts/${post.id}`}>
             <h3 className="text-lg font-semibold text-blue-600 hover:underline">{post.title}</h3>
-            <p className="text-gray-600 mt-2 text-sm">{post.body}</p>
+            <p className="text-gray-600 mt-2 text-sm line-clamp-2">{stripHtml(post.body)}</p>
           </Link>
         </li>
       ))}

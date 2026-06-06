@@ -1,8 +1,9 @@
 'use client'
 
-import { useActionState } from "react";
+import { useState, useActionState } from "react";
 import { updatePost, ActionResult } from '@/app/actions/post'
 import { Post } from '@/types/post'
+import TiptapEditor from '@/components/editor/TiptapEditor'
 
 type Props = {
   post: Post
@@ -12,6 +13,7 @@ const initialState: ActionResult = { success: false }
 
 export default function EditPostForm({ post }: Props) {
   const [state, formAction] = useActionState(updatePost, initialState)
+  const [body, setBody] = useState(post.body)
 
   return (
     <>
@@ -20,8 +22,9 @@ export default function EditPostForm({ post }: Props) {
       )}
       <form action={formAction} className="space-y-4">
         <input type="hidden" name="id" value={post.id} />
+        <input type="hidden" name="body" value={body} />
         <div>
-          <label className="block text-sm fornt-medium text-gray-700 mb-1">タイトル</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">タイトル</label>
           <input
             type="text"
             name="title"
@@ -34,12 +37,7 @@ export default function EditPostForm({ post }: Props) {
         </div>
         <div>
           <label className="block text-sm fornt-medium text-gray-700 mb-1">本文</label>
-          <textarea
-            name="body"
-            rows={4}
-            defaultValue={post.body}
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
+          <TiptapEditor content={post.body} onChange={setBody} />
           {state.errors?.body && (
             <p className="text-red-500 text-sm mt-1">{state.errors.body[0]}</p>
           )}

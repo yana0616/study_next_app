@@ -1,4 +1,7 @@
+'use client'
+
 import Link from "next/link";
+import DOMPurify from "dompurify";
 import { Post } from "@/types/post";
 import { deletePost } from "@/app/actions/post";
 
@@ -7,10 +10,14 @@ type Props = {
 }
 
 export default function PostDetail({ post }: Props) {
+  const sanitizedBody = DOMPurify.sanitize(post.body)
   return (
     <article className="max-w-2xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">{post.title}</h1>
-      <p className="text-gray-600 leading-relaxed">{post.body}</p>
+      <div
+        className="text-gray-600 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: sanitizedBody }}
+      />
       <div className="mt-6 flex gap-4">
         <Link
           href={`/posts/${post.id}/edit`}
