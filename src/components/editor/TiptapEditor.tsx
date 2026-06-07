@@ -2,6 +2,8 @@
 
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import Image from '@tiptap/extension-image'
+import { useRef } from 'react'
 
 type Props = {
   content: string
@@ -9,13 +11,29 @@ type Props = {
 }
 
 export default function TiptapEditor({ content, onChange }: Props) {
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, Image],
     content,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML())
     },
   })
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    })
+
+    const { url } = await res.json()
+    editor?.chain().focus().setImage({ src: url }).run()
+  }
 
   return (
     <div className="border border-gray-300 rounded">
@@ -70,6 +88,20 @@ export default function TiptapEditor({ content, onChange }: Props) {
         >
           {'</>'}
         </button>
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="px-2 py-1 rounded text-sm hover:bg-gray-100"
+        >
+          🖼 画像
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageUpload}
+        />
       </div>
 
       {/* エディタ本体 */}
