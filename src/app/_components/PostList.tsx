@@ -11,6 +11,10 @@ type Props = {
 
 // postのhtmlをプレーンテキストにする。
 const stripHtml = (html: string) => {
+  // サーバーサイトではdocumentが使えないのでregexで代替
+  if (typeof window === 'undefined') {
+    return html.replace(/<[^>]*>/g, '')
+  }
   const div = document.createElement('div')
   div.innerHTML = DOMPurify.sanitize(html)
   return div.textContent || ''
