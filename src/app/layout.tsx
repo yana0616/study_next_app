@@ -20,6 +20,7 @@ export default async function RootLayout({
               {session && (
                 <Link href="/posts/new" className="font-semibold text-blue-600 hover:underline">新規投稿</Link>
               )}
+              <Link href="/contact" className="font-semibold text-blue-600 hover:underline">お問い合わせ</Link>
             </div>
             <div>
               {session ? (

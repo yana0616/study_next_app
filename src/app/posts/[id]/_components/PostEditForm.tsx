@@ -36,7 +36,7 @@ export default function EditPostForm({ post }: Props) {
           )}
         </div>
         <div>
-          <label className="block text-sm fornt-medium text-gray-700 mb-1">本文</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">本文</label>
           <TiptapEditor content={post.body} onChange={setBody} />
           {state.errors?.body && (
             <p className="text-red-500 text-sm mt-1">{state.errors.body[0]}</p>
