@@ -1,6 +1,7 @@
 import "./globals.css";
 import Link from "next/link";
 import { auth, signOut } from '@/auth';
+import GoogleAnalytics from "./_components/GoogleAnalytics";
 
 export default async function RootLayout({
   children,
@@ -12,6 +13,7 @@ export default async function RootLayout({
   return (
     <html lang="ja">
       <body className="bg-gray-50 text-gray-900">
+        <GoogleAnalytics />
         <header className="bg-white border-b border-gray-200 shadow-sm">
           <nav className="max-w-2xl mx-auto px-4 py-4 flex justify-between items-center">
             <div className="flex gap-6">
